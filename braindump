@@ -1,0 +1,30 @@
+What is the best Java base image?
+
+- https://pkgs.alpinelinux.org/package/edge/community/x86/openjdk8-jre
+- https://hub.docker.com/_/openjdk
+- https://hub.docker.com/_/amazoncorretto
+- https://hub.docker.com/_/microsoft-java-jre
+- https://hub.docker.com/u/bellsoft
+
+Option - manual build with commits
+
+docker run -it ubuntu /bin/bash
+apt update && apt upgrade
+apt install default-jre
+
+docker commit <id> maeddes/java-base
+
+dive ubuntu
+dive maeddes/java-base
+
+//TODO - dive options
+
+stop container
+
+docker run -it maeddes/java-base /bin/bash
+
+docker cp simplecode-0.0.1-SNAPSHOT.jar <id>:/tmp/
+
+docker commit <id> maeddes/java-app
+
+docker run -p 8080:8080 maeddes/java-app java -jar /tmp/simplecode-0.0.1-SNAPSHOT.jar
