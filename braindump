@@ -1,4 +1,5 @@
 What is the best Java base image?
+(Define "best")
 
 - https://pkgs.alpinelinux.org/package/edge/community/x86/openjdk8-jre
 - https://hub.docker.com/_/openjdk
