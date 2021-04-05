@@ -17,6 +17,8 @@ apt install default-jre -y || apt install openjdk-11-jre-headless -y || apt inst
 exit
 docker commit $(docker ps -lq) maeddes/java-base
 
+(https://serverfault.com/questions/949991/how-to-install-tzdata-on-a-ubuntu-docker-image)
+
 Alternative 2:
 
 docker run ubuntu:20.10 bash -c "apt update && apt install openjdk-11-jre-headless -y"
@@ -29,19 +31,12 @@ docker cp target/simplecode-0.0.1-SNAPSHOT.jar $(docker ps -lq):/opt/app.jar
 
 docker commit --change='CMD ["java","-jar","/opt/app.jar"]' $(docker ps -lq) maeddes/java-app
 
-(https://serverfault.com/questions/949991/how-to-install-tzdata-on-a-ubuntu-docker-image)
+docker history maeddes/java-base
+docker history maeddes/java-app
 
-dive ubuntu
 dive maeddes/java-base
+dive maeddes/java-app
 
 //TODO - dive options
-
-stop container
-
-docker run -it maeddes/java-base /bin/bash
-
-docker cp simplecode-0.0.1-SNAPSHOT.jar <id>:/tmp/
-
-docker commit <id> maeddes/java-app
 
 docker run -p 8080:8080 maeddes/java-app java -jar /tmp/simplecode-0.0.1-SNAPSHOT.jar
