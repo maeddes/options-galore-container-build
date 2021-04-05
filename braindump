@@ -9,10 +9,17 @@ What is the best Java base image?
 
 Option - manual build with commits
 
-docker run -it ubuntu /bin/bash
+Alternative 1:
+
+docker run -it ubuntu:20.10 /bin/bash
 apt update 
-apt install default-jre -y
-apt install openjdk-11-jre-headless -y
+apt install default-jre -y || apt install openjdk-11-jre-headless -y
+docker commit <id> maeddes/java-base
+
+Alternative 2:
+
+docker run ubuntu:20.10 bash -c "apt update && apt install openjdk-11-jre-headless -y"
+(Not working: docker run ubuntu:21.04 bash -c "apt update && apt install openjdk-11-jre-headless -y")
 docker commit <id> maeddes/java-base
 
 (https://serverfault.com/questions/949991/how-to-install-tzdata-on-a-ubuntu-docker-image)
