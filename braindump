@@ -37,6 +37,14 @@ docker history maeddes/java-app
 dive maeddes/java-base
 dive maeddes/java-app
 
-//TODO - dive options
+Ctrl + Space: doesn't work -> vi ~/.dive.yaml
+Ctrl + A	Filetree view: show/hide added files
+Ctrl + R	Filetree view: show/hide removed files
+Ctrl + M	Filetree view: show/hide modified files
+Ctrl + U	Filetree view: show/hide unmodified files
 
 docker run -p 8080:8080 maeddes/java-app java -jar /tmp/simplecode-0.0.1-SNAPSHOT.jar
+
+Sources:
+https://www.heise.de/hintergrund/Container-Images-Abschied-vom-Dockerfile-5997535.html
+https://github.com/wagoodman/dive#ui-configuration
