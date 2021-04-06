@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SimplecodeApplication {
 
-	@Value("${CF_INSTANCE_GUID:not_set}")
-	String cfInstance;
-
 	@Value("${HOSTNAME:not_set}")
 	String hostname;
 
@@ -26,16 +23,23 @@ public class SimplecodeApplication {
 	private String getInstanceId(){
 
 		if(!hostname.equals("not_set")) return hostname;
-		if(!cfInstance.equals("not_set")) return cfInstance;
 		return "probably not set";
 
 	}
 
-	@GetMapping("/hello")
+	@GetMapping("/")
 	String hello(){
 
 		logger.info("Call to hello method on instance: " + getInstanceId());
-		return getInstanceId()+" Hallo, ContainerConf ! ";
+		return getInstanceId()+" Hello, GIDS ! ";
+
+	}
+
+	@GetMapping("/new")
+	String newEndpoint(){
+
+		logger.info("Call to new method on instance: " + getInstanceId());
+		return " Hello, GIDS ! ";
 
 	}
 

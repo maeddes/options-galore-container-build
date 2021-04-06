@@ -9,6 +9,8 @@ What is the best Java base image?
 
 Option - manual build with commits
 
+export DOCKER_BUILDKIT=0
+
 Alternative 1:
 
 docker run -it ubuntu:20.10 /bin/bash
@@ -44,6 +46,17 @@ Ctrl + M	Filetree view: show/hide modified files
 Ctrl + U	Filetree view: show/hide unmodified files
 
 docker run -p 8080:8080 maeddes/java-app java -jar /tmp/simplecode-0.0.1-SNAPSHOT.jar
+
+First dockerfile:
+
+FROM ubuntu:20.10
+RUN apt update && apt install openjdk-11-jre-headless -y
+COPY target/simplecode-0.0.1-SNAPSHOT.jar /opt/app.jar
+CMD ["java","-jar","/opt/app.jar"]
+
+export DOCKER_BUILDKIT=1
+
+
 
 Sources:
 https://www.heise.de/hintergrund/Container-Images-Abschied-vom-Dockerfile-5997535.html
