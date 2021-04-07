@@ -75,8 +75,27 @@ CMD ["java","-jar","/opt/app.jar"]
 
 export DOCKER_BUILDKIT=1
 
+Show experimental caching feature
+
+# syntax=docker/dockerfile:experimental
+FROM maven:3.6.3-jdk-11 AS build
+RUN mkdir -p /opt/app/src
+COPY src /opt/app/src
+COPY pom.xml /opt/app
+RUN --mount=type=cache,target=/root/.m2 mvn -f /opt/app/pom.xml clean package
+# RUN mvn -f /opt/app/pom.xml clean package
+
+FROM adoptopenjdk:11-jre-hotspot
+COPY --from=build /opt/app/target/simplecode-0.0.1-SNAPSHOT.jar /opt/app.jar
+CMD ["java","-jar","/opt/app.jar"]
+
 
 
 Sources:
 https://www.heise.de/hintergrund/Container-Images-Abschied-vom-Dockerfile-5997535.html
 https://github.com/wagoodman/dive#ui-configuration
+https://docs.docker.com/engine/release-notes/prior-releases/
+https://docs.docker.com/engine/release-notes/prior-releases/#021-2013-05-01
+https://github.com/moby/moby/blob/v0.3.4/buildfile_test.go
+https://technology.doximity.com/articles/buildpacks-vs-dockerfiles
+https://www.baeldung.com/linux/docker-containers-evolution
