@@ -96,11 +96,47 @@ FROM adoptopenjdk:11-jre-hotspot
 COPY --from=build /opt/app/target/simplecode-0.0.1-SNAPSHOT.jar /opt/app.jar
 CMD ["java","-jar","/opt/app.jar"]
 
+docker builder prune
+docker builder prune --filter type=exec.cachemount
+
 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=maeddes/java-app:jib
 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:dockerBuild -Dimage=maeddes/java-app:jib
 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=maeddes/java-app:jib-plain
 mvn spring-boot:build-image -Dspring-boot.build-image.imageName=maeddes/java-app:paketo
 pack build maeddes/java-app:pack
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+FROM maven:3.6.3-jdk-11 AS maven
+RUN mkdir -p /opt/app/src
+COPY src /opt/app/src
+COPY pom.xml /opt/app
+RUN mvn -f /opt/app/pom.xml clean package
+
+FROM adoptopenjdk:11-jre-hotspot as builder
+WORKDIR application
+COPY --from=maven /opt/app/target/simplecode-0.0.1-SNAPSHOT.jar application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
+
+FROM adoptopenjdk:11-jre-hotspot
+WORKDIR application
+COPY --from=builder application/dependencies/ ./
+COPY --from=builder application/spring-boot-loader/ ./
+COPY --from=builder application/snapshot-dependencies/ ./
+COPY --from=builder application/application/ ./
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 
 Sources:
 https://www.heise.de/hintergrund/Container-Images-Abschied-vom-Dockerfile-5997535.html
