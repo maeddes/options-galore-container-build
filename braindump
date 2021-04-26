@@ -9,6 +9,9 @@ What is the best Java base image?
 
 Option - manual build with commits
 
+images:
+ubuntu:20.10
+
 export DOCKER_BUILDKIT=0
 
 Alternative 1:
@@ -57,7 +60,7 @@ CMD ["java","-jar","/opt/app.jar"]
 docker build -f- .<<EOF
 FROM ubuntu:20.10
 RUN apt update && apt install openjdk-11-jre-headless -y
-COPY target/HSEHelloWorld-0.0.1-SNAPSHOT.jar /opt/app.jar
+COPY target/simplecode-0.0.1-SNAPSHOT.jar /opt/app.jar
 CMD ["java","-jar","/opt/app.jar"]
 EOF
 
