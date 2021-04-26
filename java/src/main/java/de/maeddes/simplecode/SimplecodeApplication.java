@@ -35,13 +35,13 @@ public class SimplecodeApplication {
 
 	}
 
-	@GetMapping("/new")
-	String newEndpointWithNewMethod(){
+	// @GetMapping("/new")
+	// String newEndpointWithNewMethodX3(){
 
-		logger.info("Call to new method on instance: " + getInstanceId());
-		return " Hello, GIDS ! ";
+	// 	logger.info("Call to new method on instance: " + getInstanceId());
+	// 	return " Hello, GIDS ! ";
 
-	}
+	// }
 
 	@GetMapping("/fail")
 	String fail() {

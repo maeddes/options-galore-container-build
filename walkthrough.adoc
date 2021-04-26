@@ -1,0 +1,57 @@
+# Dockerfile
+
+export DOCKER_BUILDKIT=0
+
+First dockerfile:
+
+FROM ubuntu:20.10
+RUN apt update && apt install openjdk-11-jre-headless -y
+COPY target/simplecode-0.0.1-SNAPSHOT.jar /opt/app.jar
+CMD ["java","-jar","/opt/app.jar"]
+
+docker build -f Dockerfile-simple-ubuntu -t maeddes/java-app:v-simple-ubuntu .
+
+docker history maeddes/java-app:v-simple-ubuntu
+
+docker build -f Dockerfile-simple-adoptopenjdk -t maeddes/java-app:v-simple-adoptopenjdk .
+
+docker history maeddes/java-app:v-simple-adoptopenjdk
+
+dive maeddes/java-app:v-simple-ubuntu
+dive maeddes/java-app:v-simple-adoptopenjdk
+
+ctrl+m || ctrl+u
+
+docker build -f Dockerfile-multistage-builder -t maeddes/java-app:v-multistage-builder .
+
+docker history maeddes/java-app:v-multistage-builder
+
+export DOCKER_BUILDKIT=1
+
+docker build -f Dockerfile-multistage-builder -t maeddes/java-app:v-multistage-builder .
+docker build --progress=plain -f Dockerfile-multistage-builder -t maeddes/java-app:v-multistage-builder .
+
+change code - run again
+
+docker build -f Dockerfile-multistage-experimental-cache -t maeddes/java-app:v-multistage-experimental-cache .
+
+change code - run again
+
+# Jib
+
+mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=maeddes/java-app:jib
+
+https://hub.docker.com/
+
+mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:dockerBuild -Dimage=maeddes/java-app:jib
+mvn clean package com.google.cloud.tools:jib-maven-plugin:3.0.0:dockerBuild -Dimage=maeddes/java-app:jib
+
+docker history maeddes/java-app:jib
+
+# Cloud-native buildpacks
+
+pack build maeddes/java-app:pack
+
+# Paketo
+
+mvn spring-boot:build-image -Dspring-boot.build-image.imageName=maeddes/java-app:paketo
