@@ -1,4 +1,4 @@
-# Dockerfile
+== Dockerfile
 
 export DOCKER_BUILDKIT=0
 
@@ -33,11 +33,11 @@ docker build --progress=plain -f Dockerfile-multistage-builder -t maeddes/java-a
 
 change code - run again
 
-docker build -f Dockerfile-multistage-experimental-cache -t maeddes/java-app:v-multistage-experimental-cache .
+docker build -f Dockerfile-multistage-experimental-cache -t maeddes/ava-app:v-multistage-experimental-cache .
 
 change code - run again
 
-# Jib
+== Jib
 
 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=maeddes/java-app:jib
 
@@ -48,10 +48,10 @@ mvn clean package com.google.cloud.tools:jib-maven-plugin:3.0.0:dockerBuild -Dim
 
 docker history maeddes/java-app:jib
 
-# Cloud-native buildpacks
+== Cloud-native buildpacks
 
 pack build maeddes/java-app:pack
 
-# Paketo
+== Paketo
 
 mvn spring-boot:build-image -Dspring-boot.build-image.imageName=maeddes/java-app:paketo
