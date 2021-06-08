@@ -28,20 +28,20 @@ public class SimplecodeApplication {
 	}
 
 	@GetMapping("/")
-	String hello(){
+	String helloABCD(){
 
 		logger.info("Call to hello method on instance: " + getInstanceId());
 		return getInstanceId()+" Hello, GIDS ! ";
 
 	}
 
-	// @GetMapping("/new")
-	// String newEndpointWithNewMethodX3(){
+	@GetMapping("/new")
+	String newEndpointWithNewMethodVKB1234(){
 
-	// 	logger.info("Call to new method on instance: " + getInstanceId());
-	// 	return " Hello, GIDS ! ";
+		logger.info("Call to new method on instance: " + getInstanceId());
+		return " Hello, GIDS ! ";
 
-	// }
+	}
 
 	@GetMapping("/fail")
 	String fail() {
