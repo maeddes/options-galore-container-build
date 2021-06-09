@@ -109,14 +109,14 @@ docker history maeddes/java-app:jib
 pack build maeddes/java-app:pack
 ----
 
----
+----
 pack builder suggest
----
+----
 
----
+----
 pack set-default-builder paketobuildpacks/builder:tiny (deprecated)
 pack config default-builder paketobuildpacks/builder:tiny 
----
+----
 
 == Paketo
 
