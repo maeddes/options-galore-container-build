@@ -1,0 +1,4 @@
+# doesn't work this way
+paketo-buildpacks/maven:
+  version: 5.2.0
+

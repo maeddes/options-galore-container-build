@@ -1,8 +1,12 @@
 == Dockerfile
 
-----
+=== Classic
+
+Set to classic Docker mode:
+
+[source, bash]
 export DOCKER_BUILDKIT=0
-----
+
 
 First dockerfile:
 
@@ -13,28 +17,40 @@ COPY target/simplecode-0.0.1-SNAPSHOT.jar /opt/app.jar
 CMD ["java","-jar","/opt/app.jar"]
 ----
 
+Build image with custom Dockerfile:
+
 ----
 docker build -f Dockerfile-simple-ubuntu -t maeddes/java-app:v-simple-ubuntu .
 ----
+
+Show history of image:
 
 ----
 docker history maeddes/java-app:v-simple-ubuntu
 ----
 
+Build image with predefined base image:
+
 ----
 docker build -f Dockerfile-simple-adoptopenjdk -t maeddes/java-app:v-simple-adoptopenjdk .
 ----
 
+Build image with alternative base image:
+
 ----
 docker history maeddes/java-app:v-simple-adoptopenjdk
 ----
+
+Use tool "dive" to show detailed history of image:
 
 ----
 dive maeddes/java-app:v-simple-ubuntu
 dive maeddes/java-app:v-simple-adoptopenjdk
 ----
 
-ctrl+m || ctrl+u
+Use ctrl+m || ctrl+u
+
+=== Multi-Stage
 
 ----
 docker build -f Dockerfile-multistage-builder -t maeddes/java-app:v-multistage-builder .
@@ -44,12 +60,14 @@ docker build -f Dockerfile-multistage-builder -t maeddes/java-app:v-multistage-b
 docker history maeddes/java-app:v-multistage-builder
 ----
 
+=== BuildKit
+
 ----
 export DOCKER_BUILDKIT=1
 ----
 
 ----
-docker build -f Dockerfile-multistage-builder -t maeddes/java-app:v-multistage-builder .
+docker build -f Dockerfile-multistage-builder -t maeddes/java-app:v-multistage-builder . 
 ----
 
 ----
@@ -70,6 +88,8 @@ change code - run again
 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=maeddes/java-app:jib
 ----
 
+show no image locally with this tag
+
 https://hub.docker.com/
 
 ----
@@ -88,6 +108,15 @@ docker history maeddes/java-app:jib
 ----
 pack build maeddes/java-app:pack
 ----
+
+---
+pack builder suggest
+---
+
+---
+pack set-default-builder paketobuildpacks/builder:tiny (deprecated)
+pack config default-builder paketobuildpacks/builder:tiny 
+---
 
 == Paketo
 
