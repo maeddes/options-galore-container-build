@@ -153,3 +153,10 @@ https://www.baeldung.com/linux/docker-containers-evolution
 https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin
 https://kube.academy/courses/building-images
 https://containers.gitbook.io/build-containers-the-hard-way/#build-a-container-image-with-docker
+
+s2i:
+
+https://codeburst.io/source-to-image-s2i-by-example-9635c80b6108
+https://docs.openshift.com/online/pro/using_images/s2i_images/java.html
+https://dev.to/jromero/building-an-app-image-using-s2i-5gcp
+https://tomd.xyz/openshift-s2i-example/
