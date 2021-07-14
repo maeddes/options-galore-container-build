@@ -1,8 +1,9 @@
+# syntax=docker/dockerfile:experimental
 FROM maven:3.6.3-jdk-11 AS maven
 RUN mkdir -p /opt/app/src
 COPY src /opt/app/src
 COPY pom.xml /opt/app
-RUN mvn -f /opt/app/pom.xml clean package
+RUN --mount=type=cache,target=/root/.m2 mvn -f /opt/app/pom.xml clean package
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR application

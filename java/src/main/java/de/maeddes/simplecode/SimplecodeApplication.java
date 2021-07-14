@@ -28,18 +28,18 @@ public class SimplecodeApplication {
 	}
 
 	@GetMapping("/")
-	String helloABCD(){
+	String hello(){
 
 		logger.info("Call to hello method on instance: " + getInstanceId());
-		return getInstanceId()+" Hello, GIDS ! ";
+		return getInstanceId()+" Hello, Cloud Foundry Summit ! ";
 
 	}
 
 	@GetMapping("/new")
-	String newEndpointWithNewMethodVKB1234(){
+	String newEndpointABCD(){
 
 		logger.info("Call to new method on instance: " + getInstanceId());
-		return " Hello, GIDS ! ";
+		return " Hello, World ! ";
 
 	}
 
