@@ -160,8 +160,22 @@ pack config default-builder paketobuildpacks/builder:tiny
 mvn spring-boot:build-image -Dspring-boot.build-image.imageName=maeddes/java-app:paketo
 ----
 
+== Native-Images
+
+----
+pack build maeddes/java-app:native --env BP_NATIVE_IMAGE=true
+gradle bootBuildImage
+----
+
 == Micronaut
 
 ----
 pack build maeddes/micronaut-app:paketo
 ----
+
+== s2i
+
+----
+s2i build --copy . fabric8/s2i-java:latest-java11 maeddes/java-app:s2i --incremental
+----
+

@@ -141,6 +141,10 @@ COPY --from=builder application/snapshot-dependencies/ ./
 COPY --from=builder application/application/ ./
 ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 
+not working:
+BP_GRADLE_BUILT_ARTIFACT=/workspace/build/libs/simplecode-0.1-all.jar pack --env BP_GRADLE_BUILT_ARTIFACT build maeddes/micronaut-app:paketo
+
+
 Sources:
 https://www.heise.de/hintergrund/Container-Images-Abschied-vom-Dockerfile-5997535.html
 https://blog.codecentric.de/en/2020/11/buildpacks-spring-boot/
