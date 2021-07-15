@@ -1,0 +1,5 @@
+micronaut:
+  application:
+    name: simplecode
+  server:
+    port: 8081

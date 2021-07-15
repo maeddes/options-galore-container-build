@@ -5,7 +5,17 @@
 Set to classic Docker mode:
 
 [source, bash]
+
+----
 export DOCKER_BUILDKIT=0
+----
+
+Build the code:
+
+----
+cd java
+mvn clean package
+----
 
 
 First dockerfile:
@@ -148,4 +158,10 @@ pack config default-builder paketobuildpacks/builder:tiny
 
 ----
 mvn spring-boot:build-image -Dspring-boot.build-image.imageName=maeddes/java-app:paketo
+----
+
+== Micronaut
+
+----
+pack build maeddes/micronaut-app:paketo
 ----
