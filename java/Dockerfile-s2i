@@ -1,7 +1,7 @@
 FROM docker.io/fabric8/s2i-java
-LABEL "io.openshift.s2i.destination"="/tmp" \
-      "io.openshift.s2i.build.image"="docker.io/fabric8/s2i-java" \
-      "io.openshift.s2i.scripts-url"="image:///usr/local/s2i"
+LABEL "io.openshift.s2i.scripts-url"="image:///usr/local/s2i" \
+      "io.openshift.s2i.destination"="/tmp" \
+      "io.openshift.s2i.build.image"="docker.io/fabric8/s2i-java"
 
 USER root
 # Copying in source code
