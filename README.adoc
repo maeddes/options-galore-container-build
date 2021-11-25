@@ -1,4 +1,56 @@
-== Dockerfile
+= Lab instructions - Container Builds
+
+img
+
+== Prereqs
+
+* A Docker environment and Docker CLI https://docs.docker.com/get-docker/
+* A Java (11 or later) Development Kit for Java examples, e.g https://adoptopenjdk.net/
+* Pack CLI for Cloud-Native Buildpacks https://buildpacks.io/docs/tools/pack/
+* Clone this repo https://github.com/maeddes/options-galore-container-build
+
+Optional:
+
+* Dive tool https://github.com/wagoodman/dive
+
+=== Validation
+
+Validate docker installation.
+
+----
+docker version
+---
+
+Should display output like (version might differ):
+
+----
+Client:
+ Cloud integration: 1.0.17
+ Version:           20.10.8
+ API version:       1.41
+...
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          20.10.8
+  API version:      1.41 (minimum version 1.12)
+----
+
+Validate Java.
+
+----
+java --version
+----
+
+Should display output like (version might differ):
+
+----
+openjdk 11.0.10 2021-01-19
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.10+9)
+OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.10+9, mixed mode)
+----
+
+== Dockerfile Exercises
 
 === Classic
 
@@ -14,34 +66,36 @@ Build the code:
 
 ----
 cd java
-mvn clean package
+./mvnw clean package
 ----
 
-First dockerfile:
+Observe contents of Dockerfile-simple-ubuntu
 
 ----
+cat Dockerfile-simple-ubuntu
+
 FROM ubuntu:20.10
 RUN apt update && apt install openjdk-11-jre-headless -y
 COPY target/simplecode-0.0.1-SNAPSHOT.jar /opt/app.jar
 CMD ["java","-jar","/opt/app.jar"]
 ----
 
-Build image with custom Dockerfile:
+Build first image with this Dockerfile:
 
 ----
-docker build -f Dockerfile-simple-ubuntu -t maeddes/java-app:v-simple-ubuntu .
+docker build -f Dockerfile-simple-ubuntu -t java-app:v-simple-ubuntu .
 ----
 
 Show history of image:
 
 ----
-docker history maeddes/java-app:v-simple-ubuntu
+docker history java-app:v-simple-ubuntu
 ----
 
 Build image with predefined base image:
 
 ----
-docker build -f Dockerfile-simple-adoptopenjdk -t maeddes/java-app:v-simple-adoptopenjdk .
+docker build -f Dockerfile-simple-adoptopenjdk -t java-app:v-simple-adoptopenjdk .
 ----
 
 Build image with alternative base image:
