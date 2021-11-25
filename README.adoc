@@ -1,4 +1,4 @@
-= Lab instructions - Container Builds
+= Lab/Walkthrough instructions - Container Builds
 
 img
 
