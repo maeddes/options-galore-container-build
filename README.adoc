@@ -19,7 +19,7 @@ Validate docker installation.
 
 ----
 docker version
----
+----
 
 Should display output like (version might differ):
 
