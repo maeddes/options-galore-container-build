@@ -36,7 +36,7 @@ public class SimplecodeApplication {
 	}
 
 	@GetMapping("/new")
-	String newEndpointABCD(){
+	String newEndpointBCD(){
 
 		logger.info("Call to new method on instance: " + getInstanceId());
 		return " Hello, World ! ";
