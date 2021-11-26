@@ -4,10 +4,15 @@ img
 
 == Prereqs
 
+Mandatory:
+
 * A Docker environment and Docker CLI https://docs.docker.com/get-docker/
-* A Java (11 or later) Development Kit for Java examples, e.g https://adoptopenjdk.net/
 * Pack CLI for Cloud-Native Buildpacks https://buildpacks.io/docs/tools/pack/
 * Clone this repo https://github.com/maeddes/options-galore-container-build
+
+Recommended:
+
+* A Java (11 or later) Development Kit for Java examples, e.g https://adoptopenjdk.net/
 
 Optional:
 
@@ -64,9 +69,25 @@ export DOCKER_BUILDKIT=0
 
 Build the code:
 
+Change to the Java sample app directory
 ----
 cd java
+----
+
+Option 1 (with local JDK installed)
+----
 ./mvnw clean package
+----
+
+Option 2 (with local JDK installed - using docker)
+----
+docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn clean install
+----
+
+Validate build artefact
+----
+ls -ltr ./target/simplecode-0.0.1-SNAPSHOT.jar
+-rw-r--r--  1 mhs  staff  18985578 Nov 26 10:24 ./target/simplecode-0.0.1-SNAPSHOT.jar
 ----
 
 Observe contents of Dockerfile-simple-ubuntu
@@ -86,29 +107,37 @@ Build first image with this Dockerfile:
 docker build -f Dockerfile-simple-ubuntu -t java-app:v-simple-ubuntu .
 ----
 
-Show history of image:
-
-----
-docker history java-app:v-simple-ubuntu
-----
-
-Build image with predefined base image:
+Build images with other predefined base images:
 
 ----
 docker build -f Dockerfile-simple-adoptopenjdk -t java-app:v-simple-adoptopenjdk .
 ----
 
-Build image with alternative base image:
-
 ----
-docker history maeddes/java-app:v-simple-adoptopenjdk
+docker build -f Dockerfile-simple-openjdk -t java-app:v-simple-openjdk .
 ----
 
-Use tool "dive" to show detailed history of image:
+Validate images in local repo
 
 ----
-dive maeddes/java-app:v-simple-ubuntu
-dive maeddes/java-app:v-simple-adoptopenjdk
+docker images
+...
+----
+
+Observe build history and differences of the 3 images
+
+----
+docker history java-app:v-simple-ubuntu
+docker history java-app:v-simple-adoptopenjdk
+docker history java-app:v-simple-openjdk
+----
+
+Optional: Use tool "dive" to show detailed history of image:
+
+----
+dive java-app:v-simple-ubuntu
+dive java-app:v-simple-adoptopenjdk
+dive java-app:v-simple-openjdk
 ----
 
 Use ctrl+m || ctrl+u
@@ -153,6 +182,12 @@ change code - run again
 docker build -f Dockerfile-multistage-experimental-cache -t maeddes/ava-app:v-multistage-experimental-cache .
 ----
 
+Alternative output
+
+----
+docker build --progress=plain -f Dockerfile-multistage-builder -t maeddes/java-app:v-multistage-builder .
+----
+
 change code - run again
 
 show unlayered state
@@ -175,19 +210,15 @@ docker history maeddes/java-app:layered
 
 == Jib
 
-----
-mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=maeddes/java-app:jib
-----
-
-show no image locally with this tag
-
-https://hub.docker.com/
+Again the use of the local maven wrapper (mvnw) will require a local JDK installation.
+If it's not present use option 2.
 
 ----
-mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:dockerBuild -Dimage=maeddes/java-app:jib
+mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:dockerBuild -Dimage=java-app:jib
 ----
+
 ----
-mvn clean package com.google.cloud.tools:jib-maven-plugin:3.0.0:dockerBuild -Dimage=maeddes/java-app:jib
+docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:buildTar -Dimage=maeddes/java-app:jib
 ----
 
 ----
@@ -197,40 +228,21 @@ docker history maeddes/java-app:jib
 == Cloud-native buildpacks
 
 ----
-pack build maeddes/java-app:pack
-----
-
-----
 pack builder suggest
 ----
 
 ----
-pack set-default-builder paketobuildpacks/builder:tiny (deprecated)
-pack config default-builder paketobuildpacks/builder:tiny 
+pack set-default-builder paketobuildpacks/builder:base (deprecated)
+pack config default-builder paketobuildpacks/builder:base 
+----
+
+----
+pack build maeddes/java-app:pack
 ----
 
 == Paketo
 
 ----
 mvn spring-boot:build-image -Dspring-boot.build-image.imageName=maeddes/java-app:paketo
-----
-
-== Native-Images
-
-----
-pack build maeddes/java-app:native --env BP_NATIVE_IMAGE=true
-gradle bootBuildImage
-----
-
-== Micronaut
-
-----
-pack build maeddes/micronaut-app:paketo
-----
-
-== s2i
-
-----
-s2i build --copy . fabric8/s2i-java:latest-java11 maeddes/java-app:s2i --incremental
 ----
 
