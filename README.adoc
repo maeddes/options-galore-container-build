@@ -9,7 +9,7 @@ Mandatory:
 
 * A Docker environment and Docker CLI https://docs.docker.com/get-docker/
 * Pack CLI for Cloud-Native Buildpacks https://buildpacks.io/docs/tools/pack/
-* Clone this repo https://github.com/maeddes/options-galore-container-build
+* Clone/Download this repo: https://github.com/maeddes/options-galore-container-build
 
 Recommended:
 
@@ -61,6 +61,20 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.10+9, mixed mode)
 == Dockerfile Exercises
 
 === Set environment and build code
+
+Download/clone the repo and change to the root folder: 
+[source, bash]
+----
+git clone https://github.com/maeddes/options-galore-container-build.git
+----
+
+Note: Without git CLI you can download the repo as zip file here: https://github.com/maeddes/options-galore-container-build/archive/refs/heads/main.zip
+Extract it and change your command line shell to the root folder.
+
+[source, bash]
+----
+cd options-galore-container-build
+----
 
 Set to classic Docker mode:
 
