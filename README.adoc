@@ -23,6 +23,7 @@ Optional:
 
 Validate docker installation.
 
+[source]
 ----
 docker version
 ----
@@ -44,6 +45,7 @@ Server: Docker Engine - Community
 
 Validate Java.
 
+[source]
 ----
 java --version
 ----
@@ -58,7 +60,7 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.10+9, mixed mode)
 
 == Dockerfile Exercises
 
-=== Classic
+=== Set environment and build code
 
 Set to classic Docker mode:
 
@@ -82,21 +84,30 @@ Option 1 (with local JDK installed)
 ----
 
 Option 2 (with local JDK installed - using docker)
+[source]
 ----
 docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn clean install
 ----
 
 Validate build artefact (timestamps will of course be different)
+[source]
 ----
 ls -ltr ./target/simplecode-0.0.1-SNAPSHOT.jar
+----
+----
 -rw-r--r--  1 mhs  staff  18985578 Nov 26 10:24 ./target/simplecode-0.0.1-SNAPSHOT.jar
 ----
 
+=== Classic Dockerfile
+
 Observe contents of Dockerfile-simple-ubuntu
 
+[source]
 ----
 cat Dockerfile-simple-ubuntu
+----
 
+----
 FROM ubuntu:20.10
 RUN apt update && apt install openjdk-11-jre-headless -y
 COPY target/simplecode-0.0.1-SNAPSHOT.jar /opt/app.jar
@@ -105,22 +116,26 @@ CMD ["java","-jar","/opt/app.jar"]
 
 Build first image with this Dockerfile:
 
+[source]
 ----
 docker build -f Dockerfile-simple-ubuntu -t java-app:v-simple-ubuntu .
 ----
 
 Build images with other predefined base images:
 
+[source]
 ----
 docker build -f Dockerfile-simple-adoptopenjdk -t java-app:v-simple-adoptopenjdk .
 ----
 
+[source]
 ----
 docker build -f Dockerfile-simple-openjdk -t java-app:v-simple-openjdk .
 ----
 
 Validate images in local repo
 
+[source]
 ----
 docker images
 ...
@@ -128,6 +143,7 @@ docker images
 
 Observe build history and differences of the 3 images
 
+[source]
 ----
 docker history java-app:v-simple-ubuntu
 docker history java-app:v-simple-adoptopenjdk
@@ -148,68 +164,79 @@ Use ctrl+m || ctrl+u
 
 Build image with Multistage Dockerfile:
 
+[source]
 ----
 docker build -f Dockerfile-multistage-builder -t maeddes/java-app:v-multistage-builder .
 ----
 
 Validate history:
 
+[source]
 ----
 docker history maeddes/java-app:v-multistage-builder
 ----
 
 Explore docker images: 
 
+[source]
 ----
 docker images
-
+----
 
 === BuildKit
 
 Change to new Docker mode:
 
+[source]
 ----
 export DOCKER_BUILDKIT=1
 ----
 
 Observe changed output: 
 
+[source]
 ----
 docker build -f Dockerfile-simple-adoptopenjdk -t java-app:v-simple-adoptopenjdk .
 ----
 
 Obtain an alternative output: 
 
+[source]
 ----
 docker build --progress=plain -f Dockerfile-simple-adoptopenjdk -t java-app:v-simple-adoptopenjdk .
 ----
 
 Build with multistage experimental cache: 
 
+[source]
 ----
 docker build -f Dockerfile-multistage-experimental-cache -t maeddes/ava-app:v-multistage-experimental-cache .
 ----
 
 Change the code and rebuild: 
 
+[source]
 ----
 docker build -f Dockerfile-multistage-experimental-cache -t maeddes/ava-app:v-multistage-experimental-cache .
 ----
 
 Observe the history to validate that top layer is still 'monolithic': 
 
+[source]
 ----
 docker history maeddes/ava-app:v-multistage-experimental-cache
 ----
 
 Build the code with a layered jar approach: 
 
+[source]
 ----
 docker build -f Dockerfile-multistage-layered -t maeddes/java-app:layered .
 ----
 
 Display layered state
 
+[source]
 ----
 docker history maeddes/java-app:layered
 ----
@@ -219,35 +246,42 @@ docker history maeddes/java-app:layered
 Again the use of the local maven wrapper (mvnw) will require a local JDK installation.
 If it's not present use option 2.
 
+[source]
 ----
 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:dockerBuild -Dimage=java-app:jib
 ----
 
+[source]
 ----
 docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:buildTar -Dimage=maeddes/java-app:jib
 ----
 
+[source]
 ----
 docker history maeddes/java-app:jib
 ----
 
 == Cloud-native buildpacks
 
+[source]
 ----
 pack builder suggest
 ----
 
+[source]
 ----
 pack set-default-builder paketobuildpacks/builder:base (deprecated)
 pack config default-builder paketobuildpacks/builder:base 
 ----
 
+[source]
 ----
 pack build maeddes/java-app:pack
 ----
 
 == Paketo
 
+[source]
 ----
 mvn spring-boot:build-image -Dspring-boot.build-image.imageName=maeddes/java-app:paketo
 ----
