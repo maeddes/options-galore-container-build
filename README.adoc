@@ -250,7 +250,7 @@ Build with multistage experimental cache:
 
 [source]
 ----
-docker build -f Dockerfile-multistage-experimental-cache -t ava-app:v-multistage-experimental-cache .
+docker build -f Dockerfile-multistage-experimental-cache -t java-app:v-multistage-experimental-cache .
 ----
 
 Change the code and rebuild: 
@@ -268,14 +268,14 @@ Rebuild and observe faster build through caching:
 
 [source]
 ----
-docker build -f Dockerfile-multistage-experimental-cache -t ava-app:v-multistage-experimental-cache .
+docker build -f Dockerfile-multistage-experimental-cache -t java-app:v-multistage-experimental-cache .
 ----
 
 Observe the history to validate that top layer is still 'monolithic': 
 
 [source]
 ----
-docker history ava-app:v-multistage-experimental-cache
+docker history java-app:v-multistage-experimental-cache
 ----
 
 Build the code with a layered jar approach: 
