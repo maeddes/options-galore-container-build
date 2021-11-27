@@ -292,6 +292,15 @@ Display layered state
 docker history java-app:layered
 ----
 
+----
+IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+de2cb7c4be82   8 seconds ago   ENTRYPOINT ["java" "org.springframework.boot…   0B        buildkit.dockerfile.v0
+<missing>      8 seconds ago   COPY application/application/ ./ # buildkit     6.12kB    buildkit.dockerfile.v0
+<missing>      8 seconds ago   COPY application/snapshot-dependencies/ ./ #…   0B        buildkit.dockerfile.v0
+<missing>      8 seconds ago   COPY application/spring-boot-loader/ ./ # bu…   245kB     buildkit.dockerfile.v0
+<missing>      8 seconds ago   COPY application/dependencies/ ./ # buildkit    18.9MB    buildkit.dockerfile.v0
+----
+
 == Jib
 
 Again the use of the local maven wrapper (mvnw) will require a local JDK installation.
