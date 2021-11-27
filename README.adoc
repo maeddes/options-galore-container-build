@@ -9,7 +9,7 @@ Mandatory:
 
 * A Docker environment and Docker CLI https://docs.docker.com/get-docker/
 * Pack CLI for Cloud-Native Buildpacks https://buildpacks.io/docs/tools/pack/
-* Clone/Download this repo: https://github.com/maeddes/options-galore-container-build
+* Clone/Download this repo: https://github.com/options-galore-container-build
 
 Recommended:
 
@@ -65,10 +65,10 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.10+9, mixed mode)
 Download/clone the repo and change to the root folder: 
 [source, bash]
 ----
-git clone https://github.com/maeddes/options-galore-container-build.git
+git clone https://github.com/options-galore-container-build.git
 ----
 
-Note: Without git CLI you can download the repo as zip file here: https://github.com/maeddes/options-galore-container-build/archive/refs/heads/main.zip
+Note: Without git CLI you can download the repo as zip file here: https://github.com/options-galore-container-build/archive/refs/heads/main.zip
 Extract it and change your command line shell to the root folder.
 
 [source, bash]
@@ -152,7 +152,16 @@ Validate images in local repo
 [source]
 ----
 docker images
-...
+----
+
+----
+REPOSITORY     TAG                     IMAGE ID       CREATED              SIZE
+java-app       v-simple-openjdk        7209f28736c8   53 seconds ago       247MB
+java-app       v-simple-adoptopenjdk   0859e7278963   About a minute ago   263MB
+java-app       v-simple-ubuntu         aed75c42f5d4   2 minutes ago        385MB
+openjdk        11-jre-slim             8bbc180a8a27   10 days ago          228MB
+adoptopenjdk   11-jre-hotspot          2c57fb3bc67b   8 weeks ago          244MB
+maven          3.6.3-jdk-11            e23b595c92ad   8 months ago         658MB
 ----
 
 Observe build history and differences of the 3 images
@@ -180,14 +189,14 @@ Build image with Multistage Dockerfile:
 
 [source]
 ----
-docker build -f Dockerfile-multistage-builder -t maeddes/java-app:v-multistage-builder .
+docker build -f Dockerfile-multistage-builder -t java-app:v-multistage-builder .
 ----
 
 Validate history:
 
 [source]
 ----
-docker history maeddes/java-app:v-multistage-builder
+docker history java-app:v-multistage-builder
 ----
 
 Explore docker images: 
@@ -224,35 +233,35 @@ Build with multistage experimental cache:
 
 [source]
 ----
-docker build -f Dockerfile-multistage-experimental-cache -t maeddes/ava-app:v-multistage-experimental-cache .
+docker build -f Dockerfile-multistage-experimental-cache -t ava-app:v-multistage-experimental-cache .
 ----
 
 Change the code and rebuild: 
 
 [source]
 ----
-docker build -f Dockerfile-multistage-experimental-cache -t maeddes/ava-app:v-multistage-experimental-cache .
+docker build -f Dockerfile-multistage-experimental-cache -t ava-app:v-multistage-experimental-cache .
 ----
 
 Observe the history to validate that top layer is still 'monolithic': 
 
 [source]
 ----
-docker history maeddes/ava-app:v-multistage-experimental-cache
+docker history ava-app:v-multistage-experimental-cache
 ----
 
 Build the code with a layered jar approach: 
 
 [source]
 ----
-docker build -f Dockerfile-multistage-layered -t maeddes/java-app:layered .
+docker build -f Dockerfile-multistage-layered -t java-app:layered .
 ----
 
 Display layered state
 
 [source]
 ----
-docker history maeddes/java-app:layered
+docker history java-app:layered
 ----
 
 == Jib
@@ -267,12 +276,12 @@ mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:dockerBuild -Dimage=ja
 
 [source]
 ----
-docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:buildTar -Dimage=maeddes/java-app:jib
+docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:buildTar -Dimage=java-app:jib
 ----
 
 [source]
 ----
-docker history maeddes/java-app:jib
+docker history java-app:jib
 ----
 
 == Cloud-native buildpacks
@@ -290,13 +299,13 @@ pack config default-builder paketobuildpacks/builder:base
 
 [source]
 ----
-pack build maeddes/java-app:pack
+pack build java-app:pack
 ----
 
 == Paketo
 
 [source]
 ----
-mvn spring-boot:build-image -Dspring-boot.build-image.imageName=maeddes/java-app:paketo
+mvn spring-boot:build-image -Dspring-boot.build-image.imageName=java-app:paketo
 ----
 
