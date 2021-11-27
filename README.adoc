@@ -63,14 +63,14 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.10+9, mixed mode)
 Set to classic Docker mode:
 
 [source, bash]
-
 ----
 export DOCKER_BUILDKIT=0
 ----
 
 Build the code:
 
-Change to the Java sample app directory
+Change to the Java sample app 
+[source, bash]
 ----
 cd java
 ----
