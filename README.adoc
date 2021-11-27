@@ -306,11 +306,13 @@ de2cb7c4be82   8 seconds ago   ENTRYPOINT ["java" "org.springframework.boot…  
 Again the use of the local maven wrapper (mvnw) will require a local JDK installation.
 If it's not present use option 2.
 
+Option 1: 
 [source]
 ----
 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:dockerBuild -Dimage=java-app:jib
 ----
 
+Option 2: 
 [source]
 ----
 docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:buildTar -Dimage=java-app:jib
