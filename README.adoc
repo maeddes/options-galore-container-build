@@ -309,18 +309,30 @@ If it's not present use option 2.
 Option 1: 
 [source]
 ----
-mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:dockerBuild -Dimage=java-app:jib
+mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:dockerBuild -Dimage=java-app:jib
 ----
 
 Option 2: 
 [source]
 ----
-docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:buildTar -Dimage=java-app:jib
+docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:buildTar -Dimage=java-app:jib
+----
+[source]
+----
+docker load -i target/jib-image.tar
 ----
 
 [source]
 ----
 docker history java-app:jib
+----
+
+----
+IMAGE          CREATED        CREATED BY                                      SIZE      COMMENT
+bafe5ced0d6f   51 years ago   jib-maven-plugin:3.1.4                          82B       jvm arg files
+<missing>      51 years ago   jib-maven-plugin:3.1.4                          2.37kB    classes
+<missing>      51 years ago   jib-maven-plugin:3.1.4                          1B        resources
+<missing>      51 years ago   jib-maven-plugin:3.1.4                          18.9MB    dependencies
 ----
 
 == Cloud-native buildpacks
@@ -332,7 +344,6 @@ pack builder suggest
 
 [source]
 ----
-pack set-default-builder paketobuildpacks/builder:base (deprecated)
 pack config default-builder paketobuildpacks/builder:base 
 ----
 
@@ -345,6 +356,6 @@ pack build java-app:pack
 
 [source]
 ----
-mvn spring-boot:build-image -Dspring-boot.build-image.imageName=java-app:paketo
+./mvn spring-boot:build-image -Dspring-boot.build-image.imageName=java-app:paketo
 ----
 
