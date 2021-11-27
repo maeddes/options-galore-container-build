@@ -173,6 +173,13 @@ docker history java-app:v-simple-adoptopenjdk
 docker history java-app:v-simple-openjdk
 ----
 
+You will observe different base layers and structure, but always the same top layer: 
+----
+IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+7209f28736c8   3 minutes ago   /bin/sh -c #(nop)  CMD ["java" "-jar" "/opt/…   0B
+e5385e2e3146   3 minutes ago   /bin/sh -c #(nop) COPY file:90a1db2252f31169…   19MB
+----
+
 Optional: Use tool "dive" to show detailed history of image:
 
 ----
