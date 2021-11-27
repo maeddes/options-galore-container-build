@@ -199,6 +199,8 @@ Build image with Multistage Dockerfile:
 docker build -f Dockerfile-multistage-builder -t java-app:v-multistage-builder .
 ----
 
+This will take a while as all the maven dependencies need to be downloaded.
+
 Validate history:
 
 [source]
@@ -211,6 +213,14 @@ Explore docker images:
 [source]
 ----
 docker images
+----
+
+The image with the tag <none> is the result of the first stage in the Dockerfile ("build").
+
+----
+REPOSITORY     TAG                     IMAGE ID       CREATED          SIZE
+java-app       v-multistage-builder    ca155ffc6d2a   5 minutes ago    263MB
+<none>         <none>                  0498c7371461   5 minutes ago    739MB
 ----
 
 === BuildKit
