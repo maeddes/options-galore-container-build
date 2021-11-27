@@ -255,6 +255,17 @@ docker build -f Dockerfile-multistage-experimental-cache -t ava-app:v-multistage
 
 Change the code and rebuild: 
 
+You can use an editor to change a method name in
+src/main/java/de/maeddes/simplecode/SimplecodeApplication.java
+or simply execute
+
+[source]
+----
+sed -i .bak 's/hello/helloABC/g' src/main/java/de/maeddes/simplecode/SimplecodeApplication.java
+----
+
+Rebuild and observe faster build through caching: 
+
 [source]
 ----
 docker build -f Dockerfile-multistage-experimental-cache -t ava-app:v-multistage-experimental-cache .
