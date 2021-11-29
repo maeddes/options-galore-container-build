@@ -1,10 +1,11 @@
 = Lab/Walkthrough instructions - Container Builds
-:toc:
 :sectnums:
 
 image::pics/001-overview.png[Container Build Options]
 
 This lab will walk you through steps to build container images with various technologies.
+
+:toc:
 
 (C) Matthias Haeussler. Free for private purposes. (Re)distribution for commercial purposes not allowed without owner permissions.
 
