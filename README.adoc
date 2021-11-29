@@ -5,12 +5,7 @@ Matthias Haeussler. Free for private purposes.
 
 image::pics/001-overview.png[Container Build Options]
 
-
 This lab will walk you through steps to build container images with various technologies.
-
-
-
-
 
 == Prereqs
 
