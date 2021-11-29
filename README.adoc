@@ -271,8 +271,9 @@ or simply execute
 
 [source]
 ----
-sed -i .bak 's/hello/helloABC/g' src/main/java/de/maeddes/simplecode/SimplecodeApplication.java
+sed -i '' 's/hello/helloABC/g' src/main/java/de/maeddes/simplecode/SimplecodeApplication.java
 ----
+(This is for sed under MacOS. For other Linux environments you might have to omit the '')
 
 Rebuild and observe faster build through caching: 
 
@@ -331,10 +332,22 @@ Option 2:
 ----
 docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:buildTar -Dimage=java-app:jib
 ----
+
+Load the exported tar file as image into the local registry
 [source]
 ----
 docker load -i target/jib-image.tar
 ----
+----
+15bbc04e2cf6: Loading layer [==================================================>]  41.71MB/41.71MB
+7f270d883779: Loading layer [==================================================>]  16.82MB/16.82MB
+496ff124a7de: Loading layer [==================================================>]     213B/213B
+965a8d44c836: Loading layer [==================================================>]  1.345kB/1.345kB
+5e91304a655b: Loading layer [==================================================>]     219B/219B
+Loaded image: java-app:jib
+----
+
+Inspect the layered structure of the image
 
 [source]
 ----
@@ -353,15 +366,21 @@ bafe5ced0d6f   51 years ago   jib-maven-plugin:3.1.4                          82
 
 image::pics/104-buildpacks-flow.png[Cloud-Native Buildpacks]
 
+Access the pack CLI and list the suggest builders
+
 [source]
 ----
 pack builder suggest
 ----
 
+For the examples in this tutorial use the base builder image from Paketo buildpacks
+
 [source]
 ----
 pack config default-builder paketobuildpacks/builder:base 
 ----
+
+Build the container image using the buildpack
 
 [source]
 ----
