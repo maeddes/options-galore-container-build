@@ -114,6 +114,8 @@ ls -ltr ./target/simplecode-0.0.1-SNAPSHOT.jar
 
 === Classic Dockerfile
 
+image::pics/050-Dockerfile.png[Classic Dockerfile]
+
 Observe contents of Dockerfile-simple-ubuntu
 
 [source]
@@ -248,6 +250,8 @@ docker build --progress=plain -f Dockerfile-simple-adoptopenjdk -t java-app:v-si
 
 Build with multistage experimental cache: 
 
+image::pics/056-Dockerfile-MountCache.png[Dockerfile with Cache]
+
 [source]
 ----
 docker build -f Dockerfile-multistage-experimental-cache -t java-app:v-multistage-experimental-cache .
@@ -280,6 +284,8 @@ docker history java-app:v-multistage-experimental-cache
 
 Build the code with a layered jar approach: 
 
+image::pics/061-considerations.png[Layer considerations for Java]
+
 [source]
 ----
 docker build -f Dockerfile-multistage-layered -t java-app:layered .
@@ -302,6 +308,8 @@ de2cb7c4be82   8 seconds ago   ENTRYPOINT ["java" "org.springframework.boot…  
 ----
 
 == Jib
+
+image::pics/090-jib.png[Jib from Google]
 
 Again the use of the local maven wrapper (mvnw) will require a local JDK installation.
 If it's not present use option 2.
@@ -337,6 +345,8 @@ bafe5ced0d6f   51 years ago   jib-maven-plugin:3.1.4                          82
 
 == Cloud-native buildpacks
 
+image::pics/104-buildpacks-flow.png[Cloud-Native Buildpacks]
+
 [source]
 ----
 pack builder suggest
@@ -352,7 +362,9 @@ pack config default-builder paketobuildpacks/builder:base
 pack build java-app:pack
 ----
 
-== Paketo
+== Paketo with Spring Boot and Maven
+
+image::pics/108-paketo-springboot.png[Paketo, Spring Boot, Maven]
 
 [source]
 ----
