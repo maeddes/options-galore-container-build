@@ -1,4 +1,5 @@
 = Lab/Walkthrough instructions - Container Builds
+Matthias Haeussler. Free for private purposes.
 :sectnums:
 :toc:
 
@@ -9,7 +10,7 @@ This lab will walk you through steps to build container images with various tech
 
 
 
-(C) Matthias Haeussler. Free for private purposes. (Re)distribution for commercial purposes not allowed without owner permissions.
+
 
 == Prereqs
 
@@ -381,3 +382,4 @@ image::pics/108-paketo-springboot.png[Paketo, Spring Boot, Maven]
 ./mvn spring-boot:build-image -Dspring-boot.build-image.imageName=java-app:paketo
 ----
 
+(C) Matthias Haeussler. Free for private purposes. (Re)distribution for commercial purposes not allowed without owner permissions.
