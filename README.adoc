@@ -1,8 +1,9 @@
 = Lab/Walkthrough instructions - Container Builds
 :sectnums:
+:toc:
 
 image::pics/001-overview.png[Container Build Options]
-:toc:
+
 
 This lab will walk you through steps to build container images with various technologies.
 
