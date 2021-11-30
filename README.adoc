@@ -77,7 +77,7 @@ Download/clone the repo and change to the root folder:
 git clone https://github.com/maeddes/options-galore-container-build
 ----
 
-Note: Without git CLI you can download the repo as zip file here: https://github.com/options-galore-container-build/archive/refs/heads/main.zip
+Note: Without git CLI you can download the repo as zip file here: https://github.com/maeddes/options-galore-container-build/archive/refs/heads/main.zip
 Extract it and change your command line shell to the root folder.
 
 [source, bash]
