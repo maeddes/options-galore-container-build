@@ -1,11 +1,16 @@
 = Lab/Walkthrough instructions - Container Builds
-Matthias Haeussler. Free for private purposes.
 :sectnums:
 :toc:
 
 image::pics/001-overview.png[Container Build Options]
 
+== About
+
 This lab will walk you through steps to build container images with various technologies.
+
+Slides: https://speakerdeck.com/maeddes/options-galore-from-source-code-to-container-image
+Recording (English): https://www.youtube.com/watch?v=mFamovTQ6Po
+Recording (German): https://www.youtube.com/watch?v=ga8iqQ25lUY
 
 == Prereqs
 
