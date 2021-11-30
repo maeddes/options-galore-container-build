@@ -2,7 +2,7 @@
 :sectnums:
 :toc:
 
-image::pics/001-overview.png[Container Build Options,300]
+image::pics/001-overview.png[Container Build Options,640]
 
 == About
 
