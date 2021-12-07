@@ -329,7 +329,7 @@ If it's not present use option 2.
 Option 1: 
 [source]
 ----
-mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:dockerBuild -Dimage=java-app:jib
+./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.1.4:dockerBuild -Dimage=java-app:jib
 ----
 
 Option 2: 
@@ -398,7 +398,7 @@ image::pics/108-paketo-springboot.png[Paketo, Spring Boot, Maven]
 
 [source]
 ----
-./mvn spring-boot:build-image -Dspring-boot.build-image.imageName=java-app:paketo
+./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=java-app:paketo
 ----
 
 (C) Matthias Haeussler. Free for private purposes. (Re)distribution for commercial purposes not allowed without owner permissions.
