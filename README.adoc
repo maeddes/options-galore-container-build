@@ -236,6 +236,48 @@ java-app       v-multistage-builder    ca155ffc6d2a   5 minutes ago    263MB
 <none>         <none>                  0498c7371461   5 minutes ago    739MB
 ----
 
+Perform a slight modification in the source code which does not affect the behaviour of the application.
+You can use the editor 'nano' to execute this:
+
+----
+nano src/main/java/de/maeddes/simplecode/SimplecodeApplication.java
+----
+
+Locate the method hello()
+
+[java]
+----
+        @GetMapping("/")
+        String hello(){
+
+                logger.info("Call to hello method on instance: " + getInstanceId());
+                return getInstanceId()+" Hello, Container people ! ";
+
+        }
+----
+
+and just add some characters to the method name, e.g.
+
+[java]
+----
+        String helloABC(){
+----
+
+And save it using Ctrl+X and confirm with 'Y'.
+
+[source]
+----
+docker images
+----
+
+Now you can repeat the docker build call.
+
+----
+docker build -f Dockerfile-multistage-builder -t java-app:v-multistage-builder .
+----
+
+You can observe that all the dependencies will need to get downloaded again. This method does not cache anything.
+
 === BuildKit
 
 Change to new Docker mode:
