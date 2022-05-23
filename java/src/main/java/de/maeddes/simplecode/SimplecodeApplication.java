@@ -31,7 +31,7 @@ public class SimplecodeApplication {
 	String hello(){
 
 		logger.info("Call to hello method on instance: " + getInstanceId());
-		return getInstanceId()+" Hello, Cloud Foundry Summit ! ";
+		return getInstanceId()+" Hello, Container people ! ";
 
 	}
 
