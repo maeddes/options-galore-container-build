@@ -321,6 +321,8 @@ de2cb7c4be82   8 seconds ago   ENTRYPOINT ["java" "org.springframework.boot…  
 
 == Jib
 
+The following steps show how to build container images with the jib-maven plugin.
+
 image::pics/090-jib.png[Jib from Google]
 
 Again the use of the local maven wrapper (mvnw) will require a local JDK installation.
@@ -329,20 +331,46 @@ If it's not present use option 2.
 Option 1: 
 [source]
 ----
-./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.1.4:dockerBuild -Dimage=java-app:jib
+./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.2.1:dockerBuild -Dimage=java-app:jib
 ----
+
+In this case the *:dockerBuild* part will instruct the plugin to build to the local docker daemon.
+The *-Dimage* parameter will specify the image name tag.
+
+If you have a docker account you can login and push directly to the docker hub using:
+(Replace <docker_id> with your own username)
+
+[source]
+----
+./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.2.1:build -Dimage=<docker_id>/java-app:jib
+----
+
+Another option is to export the image directly to a tar. Use the following command.
+
+[source]
+----
+./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.2.1:buildTar -Dimage=java-app:jib
+----
+
+You will see an output saying
+
+After that you can import the t
+
 
 Option 2: 
 [source]
 ----
-docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:buildTar -Dimage=java-app:jib
+docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.2.1:buildTar -Dimage=java-app:jib
 ----
 
-Load the exported tar file as image into the local registry
+Load the exported tar file as image into the local registry.
+
 [source]
 ----
 docker load -i target/jib-image.tar
 ----
+
+
 ----
 15bbc04e2cf6: Loading layer [==================================================>]  41.71MB/41.71MB
 7f270d883779: Loading layer [==================================================>]  16.82MB/16.82MB
@@ -352,7 +380,9 @@ docker load -i target/jib-image.tar
 Loaded image: java-app:jib
 ----
 
-Inspect the layered structure of the image
+Both options - final steps:
+
+Now that you've built and loaded the image into the local registry using one of the options above, inspect the layered structure of the image.
 
 [source]
 ----
@@ -366,6 +396,38 @@ bafe5ced0d6f   51 years ago   jib-maven-plugin:3.1.4                          82
 <missing>      51 years ago   jib-maven-plugin:3.1.4                          1B        resources
 <missing>      51 years ago   jib-maven-plugin:3.1.4                          18.9MB    dependencies
 ----
+
+Optional: Perform some small modifications in the code similar to the ones during the Dockerfile exercise.
+Re-run the build steps and observe the caching and improved performance.
+
+Note: All of the previous examples referenced the jib plugin directly in the maven call. An alternative (and probably the clean way) to the steps above is to add the plugin to your pom.xml:
+
+The <to> tag in the following xml sets the target image path in the image registry. In our case we are using the local registry and thus just providing the image tag. 
+
+You can add the following plugin to your pom.xml
+[source]
+----
+<plugin>
+    <groupId>com.google.cloud.tools</groupId>
+    <artifactId>jib-maven-plugin</artifactId>
+    <version>3.1.4</version>
+    <configuration>
+        <to>
+            <image>java-app:jib-v2.0</image>
+        </to>
+    </configuration>
+</plugin>
+----
+
+In this case the invocation looks much simpler.
+
+[source]
+----
+./mvnw compile jib:dockerBuild
+----
+
+The *:build* and *:buildTar* options work accordingly.
+
 
 == Cloud-native buildpacks
 
