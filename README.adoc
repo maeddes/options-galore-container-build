@@ -490,34 +490,51 @@ The *:build* and *:buildTar* options work accordingly.
 
 image::pics/104-buildpacks-flow.png[Cloud-Native Buildpacks]
 
-Access the pack CLI and list the suggest builders
+Access the pack CLI and list the suggest builders. You need to pick a default builder before you start.
 
 [source]
 ----
 pack builder suggest
 ----
 
-For the examples in this tutorial use the base builder image from Paketo buildpacks
+For the examples in this tutorial use the base builder image from Paketo buildpacks.
 
 [source]
 ----
 pack config default-builder paketobuildpacks/builder:base 
 ----
 
-Build the container image using the buildpack
+Now all is set to build the container image using the buildpack. Simply execute:
 
 [source]
 ----
 pack build java-app:pack
 ----
 
+The first invocation will take a long time. The builder image is big as it contains all the logic plus buildpacks.
+
+After it is downloaded can now observe the output - the so-called bill of materials.
+This gives detailed information about the build.
+
 == Paketo with Spring Boot and Maven
 
 image::pics/108-paketo-springboot.png[Paketo, Spring Boot, Maven]
+
+For a Spring Boot application you can also invoke Paketo Buildpacks directly via maven.
 
 [source]
 ----
 ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=java-app:paketo
 ----
+
+== Options
+
+You have now completed the core exercise.
+Feel free to do some modifications yourself.
+Suggestions:
+* Edit the pom.xml and alternate the Java version (8,11,17 have been tested).
+* Do minor or major code modifications and observe changes
+* Use dive to analyze the created images.
+
 
 (C) Matthias Haeussler. Free for private purposes. (Re)distribution for commercial purposes not allowed without owner permissions.
