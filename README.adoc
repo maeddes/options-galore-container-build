@@ -396,10 +396,26 @@ Another option is to export the image directly to a tar. Use the following comma
 
 You will see an output saying
 
-After that you can import the t
+After that you can import the image into the local registry.
 
+[source]
+----
+docker load -i target/jib-image.tar
+----
+
+----
+15bbc04e2cf6: Loading layer [==================================================>]  41.71MB/41.71MB
+7f270d883779: Loading layer [==================================================>]  16.82MB/16.82MB
+496ff124a7de: Loading layer [==================================================>]     213B/213B
+965a8d44c836: Loading layer [==================================================>]  1.345kB/1.345kB
+5e91304a655b: Loading layer [==================================================>]     219B/219B
+Loaded image: java-app:jib
+----
 
 Option 2: 
+
+Without local maven you can only perform the tar build and direct import via load.
+
 [source]
 ----
 docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.2.1:buildTar -Dimage=java-app:jib
@@ -411,7 +427,6 @@ Load the exported tar file as image into the local registry.
 ----
 docker load -i target/jib-image.tar
 ----
-
 
 ----
 15bbc04e2cf6: Loading layer [==================================================>]  41.71MB/41.71MB
