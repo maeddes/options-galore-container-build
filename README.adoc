@@ -578,7 +578,7 @@ Rebased Image: a938edc476a85ab53d6aa52a5cc6288c1dffdafd9b3654236cf8b62bbce70a83
 Successfully rebased image java-app:pack
 ----
 
-----
+
 
 == Paketo with Spring Boot and Maven
 
