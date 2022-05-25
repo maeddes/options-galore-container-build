@@ -490,14 +490,15 @@ The *:build* and *:buildTar* options work accordingly.
 
 image::pics/104-buildpacks-flow.png[Cloud-Native Buildpacks]
 
-Access the pack CLI and list the suggest builders. You need to pick a default builder before you start.
+Access the pack CLI and list the suggest builders. A builder includes the buildpacks and environment that will be used for building and running your app.
+
 
 [source]
 ----
 pack builder suggest
 ----
 
-For the examples in this tutorial use the base builder image from Paketo buildpacks.
+Set a default builder to avoid specifying a builder every time you build. For the examples in this tutorial use the base builder image from Paketo buildpacks.
 
 [source]
 ----
@@ -516,6 +517,69 @@ The first invocation will take a long time. The builder image is big as it conta
 After it is downloaded can now observe the output - the so-called bill of materials.
 This gives detailed information about the build.
 
+Should display output like:
+----
+===> ANALYZING
+...
+===> DETECTING
+...
+===> RESTORING
+===> BUILDING
+...
+===> EXPORTING
+...
+----
+
+Successfully built image java-app:pack
+
+Paketo buildpacks can be configured using different  for external configuration (Environment Variables, buildpack.yml, Bindings, Procfiles). 
+
+Use an environment variable to configure the JVM version installed by the Java Buildpack and build a new version of the container image
+
+source]
+----
+pack build java-app:pack-v2.0 --env BP_JVM_VERSION=8
+----
+
+Observe the usage of (JDK 8.0.332, JRE 8.0.332) in the BUILDING phase of the output.
+
+
+Get an overview of the built Images
+
+[source]
+----
+docker images
+----
+
+Using pack it is possible to swap out the underlying OS layers (run image) of an app image with another run image version, without re-building the application. 
+
+Rebase app image with a version pinned run image 
+
+[source]
+----
+pack rebase java-app:pack --run-image paketobuildpacks/run:1.3.48-full-cnb
+----
+
+Should display output like:
+
+----
+1.3.48-full-cnb: Pulling from paketobuildpacks/run
+83525de54a98: Already exists
+c1dbbbd2a415: Pull complete
+283105c565ee: Pull complete
+7ead7caf102c: Pull complete
+Digest: sha256:005e54c4254bd49fa5b0b55fd7b7f16a2654bc6643963dece1cd03f7a0abce24
+Status: Downloaded newer image for paketobuildpacks/run:1.3.48-full-cnb
+Rebasing java-app:pack on run image paketobuildpacks/run:1.3.48-full-cnb
+Saving java-app:pack...
+*** Images (a938edc476a8):
+      java-app:pack
+Rebased Image: a938edc476a85ab53d6aa52a5cc6288c1dffdafd9b3654236cf8b62bbce70a83
+Successfully rebased image java-app:pack
+----
+
+----
+
 == Paketo with Spring Boot and Maven
 
 image::pics/108-paketo-springboot.png[Paketo, Spring Boot, Maven]
@@ -526,6 +590,26 @@ For a Spring Boot application you can also invoke Paketo Buildpacks directly via
 ----
 ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=java-app:paketo
 ----
+
+
+After compiling and testing the code within a standard Maven build, the build-image phase appears in the build log, in which you should observe display output like:
+
+----
+===> DETECTING
+...
+===> ANALYZING
+...
+===> RESTORING
+===> BUILDING
+...
+===> EXPORTING
+...
+Successfully built image 'docker.io/library/java-app:paketo'
+----
+
+
+Get an overview of the built Images
+
 
 == Options
 
