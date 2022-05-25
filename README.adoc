@@ -529,7 +529,7 @@ Should display output like:
 ===> EXPORTING
 ...
 
-Successfully built image java-app:pack
+Successfully built image java-app:pack^
 ----
 
 
