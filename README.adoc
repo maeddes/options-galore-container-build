@@ -528,9 +528,11 @@ Should display output like:
 ...
 ===> EXPORTING
 ...
-----
 
 Successfully built image java-app:pack
+----
+
+
 
 Paketo buildpacks can be configured using different  for external configuration (Environment Variables, buildpack.yml, Bindings, Procfiles). 
 
