@@ -20,6 +20,8 @@ Mandatory:
 * Pack CLI for Cloud-Native Buildpacks https://buildpacks.io/docs/tools/pack/
 * Clone/Download this repo: https://github.com/maeddes/options-galore-container-build
 
+* Access List: https://docs.google.com/spreadsheets/d/1wG4CD1FUPxoZRNqN41Mb_UucvALF3ast5lnUVCKCQPc/edit?usp=sharing
+
 Recommended:
 
 * A Java (11 or later) Development Kit for Java examples, e.g https://adoptopenjdk.net/
