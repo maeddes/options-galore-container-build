@@ -1,6 +1,5 @@
 package de.maeddes.simplecode;
 
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +17,7 @@ public class SimplecodeApplication {
 	@Value("${spring.profiles.active: none}")
 	String profile;
 
-	Logger logger = LoggerFactory.getLogger(SimplecodeApplication.class);
+	org.slf4j.Logger logger = LoggerFactory.getLogger(SimplecodeApplication.class);
 
 	private String getInstanceId(){
 
@@ -28,7 +27,7 @@ public class SimplecodeApplication {
 	}
 
 	@GetMapping("/")
-	String hello(){
+	String helloABCD(){
 
 		logger.info("Call to hello method on instance: " + getInstanceId());
 		return getInstanceId()+" Hello, Container people ! ";

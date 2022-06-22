@@ -1,5 +1,5 @@
-# syntax=docker/dockerfile:1.3
-FROM maven:3-jdk-11 AS build
+
+FROM maven:3.6.3-jdk-11 AS build
 RUN mkdir -p /opt/app/src
 COPY src /opt/app/src
 COPY pom.xml /opt/app
