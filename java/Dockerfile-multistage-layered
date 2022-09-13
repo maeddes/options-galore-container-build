@@ -5,12 +5,12 @@ COPY src /opt/app/src
 COPY pom.xml /opt/app
 RUN --mount=type=cache,target=/root/.m2 mvn -f /opt/app/pom.xml clean package
 
-FROM adoptopenjdk:11-jre-hotspot as builder
+FROM eclipse-temurin:11-jre-focal as builder
 WORKDIR application
 COPY --from=maven /opt/app/target/simplecode-0.0.1-SNAPSHOT.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
-FROM adoptopenjdk:11-jre-hotspot
+FROM eclipse-temurin:11-jre-focal
 WORKDIR application
 COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/spring-boot-loader/ ./
