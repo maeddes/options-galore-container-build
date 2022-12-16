@@ -3,6 +3,9 @@
 target/
 students/
 
+**/.gradle
+.project
+
 # Log file
 *.log
 
