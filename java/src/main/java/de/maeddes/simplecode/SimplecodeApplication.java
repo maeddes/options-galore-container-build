@@ -27,9 +27,9 @@ public class SimplecodeApplication {
 	}
 
 	@GetMapping("/")
-	String hello(){
+	String helloABC(){
 
-		logger.info("Call to hello method on instance: " + getInstanceId());
+		logger.info("Call to helloABC method on instance: " + getInstanceId());
 		return getInstanceId()+" Hello, Container people ! ";
 
 	}
