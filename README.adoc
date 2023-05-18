@@ -64,10 +64,9 @@ java --version
 Should display output like (version might differ):
 
 ----
-Picked up JAVA_TOOL_OPTIONS:  -Xmx3489m
-openjdk 17.0.7 2023-04-18
-OpenJDK Runtime Environment Temurin-17.0.7+7 (build 17.0.7+7)
-OpenJDK 64-Bit Server VM Temurin-17.0.7+7 (build 17.0.7+7, mixed mode, sharing)
+openjdk 11.0.10 2021-01-19
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.10+9)
+OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.10+9, mixed mode)
 ----
 
 == Dockerfile Exercises
@@ -112,7 +111,7 @@ Option 1 (with local JDK installed)
 Option 2 (with local JDK installed - using docker)
 [source]
 ----
-docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3-eclipse-temurin-17 mvn clean install
+docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn clean install
 ----
 
 Validate build artefact (timestamps will of course be different)

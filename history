@@ -1,0 +1,60 @@
+    1  cd java
+    2  docker build -f Dockerfile-simple-temurin -t java-temurin-plain:v1 .
+    3  sdk install java
+    4  cd target 
+    5  cd ..
+    6  mvn clean install
+    7  ps -ef
+    8  ./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.3.1:dockerBuild -Dimage=java-app:jib
+    9  cd java
+   10  mvn compile com.google.cloud.tools:jib-maven-plugin:3.3.1:dockerBuild -Dimage=java-app:jib
+   11  docker images
+   12  docker ps
+   13  docker run -d 7c5 
+   14  ps -ef
+   15  brew install buildpacks/tap/pack
+   16  pack
+   17  pack config default-builder paketobuildpacks/builder:base
+   18  pack build java-app:pack
+   19  sudo chmod 666 /var/run/docker.sock
+   20  pack build java-app:pack
+   21  docker images
+   22  docker run -d 16b
+   23  docker logs
+   24  docker logs ~1~6b
+   25  docker logs 16b
+   26  docker logs 0db
+   27  ps -ef
+   28  history > /workspace/history
+   29  history > /workspace/options-galore-container-build/history
+    1  echo 'TODO: start app'
+    2  cd java
+    3  docker build -f Dockerfile-simple-temurin -t java-temurin-plain:v1 .
+    4  sdk install java
+    5  cd target 
+    6  cd ..
+    7  mvn clean install
+    8  java -jar target/simplecode-0.0.1-SNAPSHOT.jar 
+    9  java –XX:+UseParallelGC –XX:MaxRAMPercentage=75 -jar target/simplecode-0.0.1-SNAPSHOT.jar
+   10  java
+   11  java -XX:-UseParallelGC -jar target/simplecode-0.0.1-SNAPSHOT.jar 
+   12  java -XX:+UseParallelGC -jar target/simplecode-0.0.1-SNAPSHOT.jar 
+   13  java -XX:+UseParallelGC –XX:MaxRAMPercentage=75 -jar target/simplecode-0.0.1-SNAPSHOT.jar 
+   14  java -XX:+UseParallelGC -XX:MaxRAMPercentage=75 -jar target/simplecode-0.0.1-SNAPSHOT.jar 
+   15  docker build -f Dockerfile-simple-temurin -t java-app-gc:v1 .
+   16  docker images
+   17  docker run -d d63
+   18  docker ps
+   19  docker logs 952
+   20  docker ps
+   21  docker build -f Dockerfile-multistage-layered -t java-final-gc:v1 .
+   22  mvn clean
+   23  docker build -f Dockerfile-multistage-layered -t java-final-gc:v1 .
+   24  docker build
+   25  docker build --help
+   26  docker build --no-cache -f Dockerfile-multistage-layered -t java-final-gc:v1 .
+   27  docker images
+   28  docker run -d 747
+   29  docker logs 5f3
+   30  history 
+   31  history >> /workspace/options-galore-container-build/history 
