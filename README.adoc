@@ -506,7 +506,7 @@ You also can of course apply these settings not during build time, but when star
 
 [source]
 ----
-docker run --env JAVA_TOOL_OPTIONS='–XX:+UseParallelGC –XX:MaxRAMPercentage=75' java-app:jib
+docker run --env JAVA_TOOL_OPTIONS='-XX:+UseParallelGC -XX:MaxRAMPercentage=75' java-app:jib
 ----
 
 
