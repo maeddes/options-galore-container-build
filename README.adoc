@@ -11,6 +11,7 @@ This lab will walk you through steps to build container images with various tech
 * Slides: https://speakerdeck.com/maeddes/options-galore-from-source-code-to-container-image
 * Recording (English): https://www.youtube.com/watch?v=mFamovTQ6Po
 * Recording (German): https://www.youtube.com/watch?v=ga8iqQ25lUY
+* Recording (Carlos & Devoxx UK):  https://youtu.be/HTtdoRc0BQI
 
 == Prereqs
 
@@ -33,7 +34,6 @@ Optional:
 Links:
 
 * https://home.robusta.dev/blog/stop-using-cpu-limits
-* https://youtu.be/HTtdoRc0BQI
 
 === Validation
 
