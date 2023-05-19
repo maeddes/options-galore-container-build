@@ -365,6 +365,7 @@ de2cb7c4be82   8 seconds ago   ENTRYPOINT ["java" "org.springframework.boot…  
 
 Finally have a look at the Dockerfile with specific JVM flags:
 
+[source]
 ----
 cat Dockerfile-multistage-layered-jvm-flags 
 ----
@@ -503,6 +504,7 @@ The *:build* and *:buildTar* options work accordingly.
 It is of course also possible to define custom JVM arguments with Jib. However this is not possible with a plain mvn call.
 You also can of course apply these settings not during build time, but when starting the container:
 
+[source]
 ----
 docker run --env JAVA_TOOL_OPTIONS='–XX:+UseParallelGC –XX:MaxRAMPercentage=75' java-app:jib
 ----
