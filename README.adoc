@@ -20,7 +20,7 @@ Mandatory:
 * Pack CLI for Cloud-Native Buildpacks https://buildpacks.io/docs/tools/pack/
 * Clone/Download this repo: https://github.com/maeddes/options-galore-container-build
 
-* Access List: https://docs.google.com/spreadsheets/d/1wG4CD1FUPxoZRNqN41Mb_UucvALF3ast5lnUVCKCQPc/edit?usp=sharing
+* Access List: https://docs.google.com/spreadsheets/d/13Ii2QqffMyazEQ2t-ROznSf_Im9QMGVQV3RmhZwS_Mo/edit?usp=sharing
 
 Recommended:
 
