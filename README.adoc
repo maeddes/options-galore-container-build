@@ -169,6 +169,7 @@ REPOSITORY   TAG                    IMAGE ID       CREATED              SIZE
 java-app     v-simple-ibm-semeru   3a7c058097d9   8 seconds ago    300MB
 java-app     v-simple-temurin      62c5ca75dad1   32 seconds ago   292MB
 java-app     v-simple-ubuntu       a491383f3f53   2 minutes ago    400MB----
+----
 
 Observe build history and differences of the 3 images
 
