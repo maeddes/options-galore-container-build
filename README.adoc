@@ -232,6 +232,7 @@ java-app     v-multistage-builder   816512fee0cd   17 seconds ago   291MB
 Perform a slight modification in the source code which does not affect the behaviour of the application.
 You can use the editor 'nano' to execute this:
 
+[source]
 ----
 nano src/main/java/de/maeddes/simplecode/SimplecodeApplication.java
 ----
@@ -258,13 +259,9 @@ and just add some characters to the method name, e.g.
 
 And save it using Ctrl+X and confirm with 'Y'.
 
-[source]
-----
-docker images
-----
-
 Now you can repeat the docker build call.
 
+[source]
 ----
 docker build -f Dockerfile-multistage-builder -t java-app:v-multistage-builder .
 ----
@@ -286,14 +283,24 @@ docker build -f Dockerfile-multistage-cache -t java-app:v-multistage-cache .
 Change the code and rebuild: 
 
 You can use an editor to change a method name in
+----
 src/main/java/de/maeddes/simplecode/SimplecodeApplication.java
+----
 or simply execute
+
+[source]
+----
+sed -i 's/hello/helloABC/g' src/main/java/de/maeddes/simplecode/SimplecodeApplication.java
+----
+(Linux)
+
+or
 
 [source]
 ----
 sed -i '' 's/hello/helloABC/g' src/main/java/de/maeddes/simplecode/SimplecodeApplication.java
 ----
-(This is for sed under MacOS. For other Linux environments you might have to omit the '')
+(Mac)
 
 Rebuild and observe faster build through caching: 
 
