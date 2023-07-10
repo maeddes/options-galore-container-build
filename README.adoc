@@ -91,13 +91,6 @@ Extract it and change your command line shell to the root folder.
 cd options-galore-container-build
 ----
 
-Set to classic Docker mode:
-
-[source, bash]
-----
-export DOCKER_BUILDKIT=0
-----
-
 Build the code:
 
 Change to the Java sample app 
