@@ -11,6 +11,7 @@ This lab will walk you through steps to build container images with various tech
 * Slides: https://speakerdeck.com/maeddes/options-galore-from-source-code-to-container-image
 * Recording (English): https://www.youtube.com/watch?v=mFamovTQ6Po
 * Recording (German): https://www.youtube.com/watch?v=ga8iqQ25lUY
+* Recording (Carlos & Devoxx UK):  https://youtu.be/HTtdoRc0BQI
 
 == Prereqs
 
@@ -20,7 +21,7 @@ Mandatory:
 * Pack CLI for Cloud-Native Buildpacks https://buildpacks.io/docs/tools/pack/
 * Clone/Download this repo: https://github.com/maeddes/options-galore-container-build
 
-* Access List: https://docs.google.com/spreadsheets/d/1wG4CD1FUPxoZRNqN41Mb_UucvALF3ast5lnUVCKCQPc/edit?usp=sharing
+* Access List: https://docs.google.com/spreadsheets/d/13Ii2QqffMyazEQ2t-ROznSf_Im9QMGVQV3RmhZwS_Mo/edit?usp=sharing
 
 Recommended:
 
@@ -29,6 +30,10 @@ Recommended:
 Optional:
 
 * Dive tool https://github.com/wagoodman/dive
+
+Links:
+
+* https://home.robusta.dev/blog/stop-using-cpu-limits
 
 === Validation
 
@@ -361,6 +366,20 @@ de2cb7c4be82   8 seconds ago   ENTRYPOINT ["java" "org.springframework.boot…  
 <missing>      8 seconds ago   COPY application/dependencies/ ./ # buildkit    18.9MB    buildkit.dockerfile.v0
 ----
 
+Finally have a look at the Dockerfile with specific JVM flags:
+
+[source]
+----
+cat Dockerfile-multistage-layered-jvm-flags 
+----
+
+in the final line you can see how to apply alternative settings here.
+
+----
+ENTRYPOINT ["java","-XX:+UseParallelGC","-XX:MaxRAMPercentage=75","org.springframework.boot.loader.JarLauncher"]
+----
+
+
 == Jib
 
 The following steps show how to build container images with the jib-maven plugin.
@@ -485,6 +504,14 @@ In this case the invocation looks much simpler.
 
 The *:build* and *:buildTar* options work accordingly.
 
+It is of course also possible to define custom JVM arguments with Jib. However this is not possible with a plain mvn call.
+You also can of course apply these settings not during build time, but when starting the container:
+
+[source]
+----
+docker run --env JAVA_TOOL_OPTIONS='-XX:+UseParallelGC -XX:MaxRAMPercentage=75' java-app:jib
+----
+
 
 == Cloud-native buildpacks
 
@@ -532,6 +559,11 @@ Should display output like:
 Successfully built image java-app:pack^
 ----
 
+If you want to configure specific JVM settings with Paketo Buildpacks you can extend the call to use alternative configuration:
+
+----
+pack build -e BPE_APPEND_JAVA_TOOL_OPTIONS='-XX:+UseParallelGC -XX:MaxRAMPercentage=75' -e BPE_DELIM_JAVA_TOOL_OPTIONS=' ' java-app:pack
+----
 
 
 Paketo buildpacks can be configured using different  for external configuration (Environment Variables, buildpack.yml, Bindings, Procfiles). 
