@@ -164,3 +164,14 @@ https://codeburst.io/source-to-image-s2i-by-example-9635c80b6108
 https://docs.openshift.com/online/pro/using_images/s2i_images/java.html
 https://dev.to/jromero/building-an-app-image-using-s2i-5gcp
 https://tomd.xyz/openshift-s2i-example/
+
+
+
+Option 2: 
+
+Without local maven you can only perform the tar build and direct import via load.
+
+[source]
+----
+docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.3.1:buildTar -Dimage=java-app:jib
+----

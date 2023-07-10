@@ -125,7 +125,7 @@ Validate build artefact (timestamps will of course be different)
 ls -ltr ./target/simplecode-0.0.1-SNAPSHOT.jar
 ----
 ----
--rw-r--r--  1 mhs  staff  18985578 Nov 26 10:24 ./target/simplecode-0.0.1-SNAPSHOT.jar
+-rw-r--r-- 1 root root 20951064 May  5 11:47 ./target/simplecode-0.0.1-SNAPSHOT.jar
 ----
 
 === Classic Dockerfile
@@ -140,8 +140,8 @@ cat Dockerfile-simple-ubuntu
 ----
 
 ----
-FROM ubuntu:20.10
-RUN apt update && apt install openjdk-11-jre-headless -y
+FROM ubuntu:22.04
+RUN apt update && apt install openjdk-17-jre-headless -y
 COPY target/simplecode-0.0.1-SNAPSHOT.jar /opt/app.jar
 CMD ["java","-jar","/opt/app.jar"]
 ----
@@ -157,12 +157,12 @@ Build images with other predefined base images:
 
 [source]
 ----
-docker build -f Dockerfile-simple-adoptopenjdk -t java-app:v-simple-adoptopenjdk .
+docker build -f Dockerfile-simple-temurin -t java-app:v-simple-temurin .
 ----
 
 [source]
 ----
-docker build -f Dockerfile-simple-openjdk -t java-app:v-simple-openjdk .
+docker build -f Dockerfile-simple-ibm-semeru -t java-app:v-simple-ibm-semeru .
 ----
 
 Validate images in local repo
@@ -173,13 +173,11 @@ docker images
 ----
 
 ----
-REPOSITORY     TAG                     IMAGE ID       CREATED              SIZE
-java-app       v-simple-openjdk        7209f28736c8   53 seconds ago       247MB
-java-app       v-simple-adoptopenjdk   0859e7278963   About a minute ago   263MB
-java-app       v-simple-ubuntu         aed75c42f5d4   2 minutes ago        385MB
-openjdk        11-jre-slim             8bbc180a8a27   10 days ago          228MB
-adoptopenjdk   11-jre-hotspot          2c57fb3bc67b   8 weeks ago          244MB
-maven          3.6.3-jdk-11            e23b595c92ad   8 months ago         658MB
+REPOSITORY   TAG                    IMAGE ID       CREATED              SIZE
+java-app     v-simple-ibm-semeru    7fd3dd23912c   16 seconds ago       298MB
+java-app     v-simple-temurin       03d1ae8f42b8   About a minute ago   291MB
+java-app     v-simple-ubuntu        f59ecf71a3ec   29 minutes ago       400MB
+maven        3-eclipse-temurin-17   cf926540505e   29 hours ago         530MB
 ----
 
 Observe build history and differences of the 3 images
@@ -187,8 +185,8 @@ Observe build history and differences of the 3 images
 [source]
 ----
 docker history java-app:v-simple-ubuntu
-docker history java-app:v-simple-adoptopenjdk
-docker history java-app:v-simple-openjdk
+docker history java-app:v-simple-temurin
+docker history java-app:v-simple-ibm-semeru
 ----
 
 You will observe different base layers and structure, but always the same top layer: 
@@ -239,8 +237,8 @@ The image with the tag <none> is the result of the first stage in the Dockerfile
 
 ----
 REPOSITORY     TAG                     IMAGE ID       CREATED          SIZE
-java-app       v-multistage-builder    ca155ffc6d2a   5 minutes ago    263MB
-<none>         <none>                  0498c7371461   5 minutes ago    739MB
+java-app     v-multistage-builder   816512fee0cd   17 seconds ago   291MB
+<none>       <none>                 53fcb2b49606   15 minutes ago   477MB
 ----
 
 Perform a slight modification in the source code which does not affect the behaviour of the application.
@@ -298,14 +296,14 @@ Observe changed output:
 
 [source]
 ----
-docker build -f Dockerfile-simple-adoptopenjdk -t java-app:v-simple-adoptopenjdk .
+docker build -f Dockerfile-simple-temurin -t java-app:v-simple-temurin .
 ----
 
 Obtain an alternative output: 
 
 [source]
 ----
-docker build --progress=plain -f Dockerfile-simple-adoptopenjdk -t java-app:v-simple-adoptopenjdk .
+docker build --progress=plain -f Dockerfile-simple-ibm-semeru -t java-app:v-simple-ibm-semeru .
 ----
 
 Build with multistage experimental cache: 
@@ -314,7 +312,7 @@ image::pics/056-Dockerfile-MountCache.png[Dockerfile with Cache]
 
 [source]
 ----
-docker build -f Dockerfile-multistage-experimental-cache -t java-app:v-multistage-experimental-cache .
+docker build -f Dockerfile-multistage-cache -t java-app:v-multistage-cache .
 ----
 
 Change the code and rebuild: 
@@ -333,14 +331,14 @@ Rebuild and observe faster build through caching:
 
 [source]
 ----
-docker build -f Dockerfile-multistage-experimental-cache -t java-app:v-multistage-experimental-cache .
+docker build -f Dockerfile-multistage-cache -t java-app:v-multistage-cache .
 ----
 
 Observe the history to validate that top layer is still 'monolithic': 
 
 [source]
 ----
-docker history java-app:v-multistage-experimental-cache
+docker history java-app:v-multistage-cache
 ----
 
 Build the code with a layered jar approach: 
@@ -394,7 +392,7 @@ If it's not present use option 2.
 Option 1: 
 [source]
 ----
-./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.2.1:dockerBuild -Dimage=java-app:jib
+./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.3.1:dockerBuild -Dimage=java-app:jib
 ----
 
 In this case the *:dockerBuild* part will instruct the plugin to build to the local docker daemon.
@@ -405,14 +403,14 @@ If you have a docker account you can login and push directly to the docker hub u
 
 [source]
 ----
-./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.2.1:build -Dimage=<docker_id>/java-app:jib
+./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.3.2:build -Dimage=<docker_id>/java-app:jib
 ----
 
 Another option is to export the image directly to a tar. Use the following command.
 
 [source]
 ----
-./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.2.1:buildTar -Dimage=java-app:jib
+./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.3.2:buildTar -Dimage=java-app:jib
 ----
 
 You will see an output saying
@@ -439,7 +437,7 @@ Without local maven you can only perform the tar build and direct import via loa
 
 [source]
 ----
-docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.2.1:buildTar -Dimage=java-app:jib
+docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn compile com.google.cloud.tools:jib-maven-plugin:3.3.1:buildTar -Dimage=java-app:jib
 ----
 
 Load the exported tar file as image into the local registry.
