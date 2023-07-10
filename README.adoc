@@ -47,16 +47,15 @@ docker version
 Should display output like (version might differ):
 
 ----
-Client:
- Cloud integration: 1.0.17
- Version:           20.10.8
- API version:       1.41
+Client: Docker Engine - Community
+ Version:           24.0.2
+ API version:       1.43
 ...
 
 Server: Docker Engine - Community
  Engine:
-  Version:          20.10.8
-  API version:      1.41 (minimum version 1.12)
+  Version:          24.0.2
+  API version:      1.43 (minimum version 1.12)
 ----
 
 Validate Java.
@@ -69,9 +68,9 @@ java --version
 Should display output like (version might differ):
 
 ----
-openjdk 11.0.10 2021-01-19
-OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.10+9)
-OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.10+9, mixed mode)
+openjdk 17.0.7 2023-04-18
+OpenJDK Runtime Environment (build 17.0.7+7-Ubuntu-0ubuntu120.04)
+OpenJDK 64-Bit Server VM (build 17.0.7+7-Ubuntu-0ubuntu120.04, mixed mode, sharing)
 ----
 
 == Dockerfile Exercises
