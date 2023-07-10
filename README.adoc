@@ -367,7 +367,7 @@ If it's not present use option 2.
 Option 1: 
 [source]
 ----
-./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.3.1:dockerBuild -Dimage=java-app:jib
+./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.3.2:dockerBuild -Dimage=java-app:jib
 ----
 
 In this case the *:dockerBuild* part will instruct the plugin to build to the local docker daemon.
@@ -461,7 +461,7 @@ You can add the following plugin to your pom.xml
 <plugin>
     <groupId>com.google.cloud.tools</groupId>
     <artifactId>jib-maven-plugin</artifactId>
-    <version>3.1.4</version>
+    <version>3.3.2</version>
     <configuration>
         <to>
             <image>java-app:jib-v2.0</image>
@@ -536,6 +536,7 @@ Successfully built image java-app:pack^
 
 If you want to configure specific JVM settings with Paketo Buildpacks you can extend the call to use alternative configuration:
 
+[source]
 ----
 pack build -e BPE_APPEND_JAVA_TOOL_OPTIONS='-XX:+UseParallelGC -XX:MaxRAMPercentage=75' -e BPE_DELIM_JAVA_TOOL_OPTIONS=' ' java-app:pack
 ----
@@ -545,12 +546,12 @@ Paketo buildpacks can be configured using different  for external configuration 
 
 Use an environment variable to configure the JVM version installed by the Java Buildpack and build a new version of the container image
 
-source]
+[source]
 ----
-pack build java-app:pack-v2.0 --env BP_JVM_VERSION=8
+pack build java-app:pack-v2.0 --env BP_JVM_VERSION=11
 ----
 
-Observe the usage of (JDK 8.0.332, JRE 8.0.332) in the BUILDING phase of the output.
+Observe the usage of (JDK 11.0.19, JRE 11.0.19) in the BUILDING phase of the output.
 
 
 Get an overview of the built Images
