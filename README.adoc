@@ -115,7 +115,7 @@ Option 1 (with local JDK installed)
 Option 2 (with local JDK installed - using docker)
 [source]
 ----
-docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3.6.3-jdk-11 mvn clean install
+docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3-jdk-17 mvn clean install
 ----
 
 Validate build artefact (timestamps will of course be different)
@@ -173,11 +173,9 @@ docker images
 
 ----
 REPOSITORY   TAG                    IMAGE ID       CREATED              SIZE
-java-app     v-simple-ibm-semeru    7fd3dd23912c   16 seconds ago       298MB
-java-app     v-simple-temurin       03d1ae8f42b8   About a minute ago   291MB
-java-app     v-simple-ubuntu        f59ecf71a3ec   29 minutes ago       400MB
-maven        3-eclipse-temurin-17   cf926540505e   29 hours ago         530MB
-----
+java-app     v-simple-ibm-semeru   3a7c058097d9   8 seconds ago    300MB
+java-app     v-simple-temurin      62c5ca75dad1   32 seconds ago   292MB
+java-app     v-simple-ubuntu       a491383f3f53   2 minutes ago    400MB----
 
 Observe build history and differences of the 3 images
 
@@ -232,12 +230,9 @@ Explore docker images:
 docker images
 ----
 
-The image with the tag <none> is the result of the first stage in the Dockerfile ("build").
-
 ----
 REPOSITORY     TAG                     IMAGE ID       CREATED          SIZE
 java-app     v-multistage-builder   816512fee0cd   17 seconds ago   291MB
-<none>       <none>                 53fcb2b49606   15 minutes ago   477MB
 ----
 
 Perform a slight modification in the source code which does not affect the behaviour of the application.
@@ -284,28 +279,8 @@ You can observe that all the dependencies will need to get downloaded again. Thi
 
 === BuildKit
 
-Change to new Docker mode:
 
-[source]
-----
-export DOCKER_BUILDKIT=1
-----
-
-Observe changed output: 
-
-[source]
-----
-docker build -f Dockerfile-simple-temurin -t java-app:v-simple-temurin .
-----
-
-Obtain an alternative output: 
-
-[source]
-----
-docker build --progress=plain -f Dockerfile-simple-ibm-semeru -t java-app:v-simple-ibm-semeru .
-----
-
-Build with multistage experimental cache: 
+Build with multistage cache option: 
 
 image::pics/056-Dockerfile-MountCache.png[Dockerfile with Cache]
 
