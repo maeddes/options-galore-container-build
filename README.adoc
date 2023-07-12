@@ -195,7 +195,7 @@ dive java-app:v-simple-adoptopenjdk
 dive java-app:v-simple-openjdk
 ----
 
-Use ctrl+m || ctrl+u
+Usage: ctrl+l (ensure layer changes) <tab> ctrl+u (uncheck unmodified) <tab> <arrows> for layer switch
 
 === Multi-Stage
 
