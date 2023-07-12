@@ -12,6 +12,7 @@ This lab will walk you through steps to build container images with various tech
 * Recording (English): https://www.youtube.com/watch?v=mFamovTQ6Po
 * Recording (German): https://www.youtube.com/watch?v=ga8iqQ25lUY
 * Recording (Carlos & Devoxx UK):  https://youtu.be/HTtdoRc0BQI
+* Carlos Repo: https://github.com/carlosbarragan/java-containers-demo
 
 == Prereqs
 
