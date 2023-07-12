@@ -105,11 +105,7 @@ Option 1 (with local JDK installed)
 ./mvnw clean package
 ----
 
-Option 2 (with local JDK installed - using docker)
-[source]
-----
-docker run -it --rm --name my-maven-project -v "$(pwd)":/opt/app -w /opt/app maven:3-jdk-17 mvn clean install
-----
+
 
 Validate build artefact (timestamps will of course be different)
 [source]
