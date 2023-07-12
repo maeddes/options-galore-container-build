@@ -185,10 +185,17 @@ e5385e2e3146   3 minutes ago   /bin/sh -c #(nop) COPY file:90a1db2252f31169…  
 
 Optional: Use tool "dive" to show detailed history of image:
 
+[source]
 ----
 dive java-app:v-simple-ubuntu
-dive java-app:v-simple-adoptopenjdk
-dive java-app:v-simple-openjdk
+----
+[source]
+----
+dive java-app:v-simple-temurin
+----
+[source]
+----
+dive java-app:v-simple-ibm-semeru
 ----
 
 Usage: ctrl+l (ensure layer changes) <tab> ctrl+u (uncheck unmodified) <tab> <arrows> for layer switch
