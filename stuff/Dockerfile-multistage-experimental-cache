@@ -5,7 +5,7 @@ COPY src /opt/app/src
 COPY pom.xml /opt/app
 RUN --mount=type=cache,target=/root/.m2 mvn -f /opt/app/pom.xml clean package
 
-FROM eclipse-temurin:17-jre-focal
+FROM eclipse-temurin:17-jre
 RUN mkdir -p /opt/app
 COPY --from=build /opt/app/target/simplecode-0.0.1-SNAPSHOT.jar /opt/app.jar
 CMD ["java","-jar","/opt/app.jar"]

@@ -18,7 +18,8 @@ RUN jlink \
     --no-header-files \
     --no-man-pages \
     --output /myjre
-FROM debian:bookworm-slim
+    
+FROM alpine
 ENV JAVA_HOME /user/java/jdk17
 ENV PATH $JAVA_HOME/bin:$PATH
 COPY --from=build /myjre $JAVA_HOME

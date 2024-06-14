@@ -47,14 +47,14 @@ Should display output like (version might differ):
 
 ----
 Client: Docker Engine - Community
- Version:           24.0.2
- API version:       1.43
+ Version:           25.0.3
+ API version:       1.44
 ...
 
 Server: Docker Engine - Community
  Engine:
-  Version:          24.0.2
-  API version:      1.43 (minimum version 1.12)
+  Version:          25.0.3
+  API version:      1.44 (minimum version 1.24)
 ----
 
 Validate Java.
@@ -76,11 +76,12 @@ OpenJDK 64-Bit Server VM (build 17.0.7+7-Ubuntu-0ubuntu120.04, mixed mode, shari
 
 === Set environment and build code
 
-Download/clone the repo and change to the root folder: 
+Download/clone the repo and change to the root folder. If you are running in gitpod,codespaces or using devcontainer, you can skip this step.
 [source, bash]
 ----
 git clone https://github.com/maeddes/options-galore-container-build
 ----
+
 
 Note: Without git CLI you can download the repo as zip file here: https://github.com/maeddes/options-galore-container-build/archive/refs/heads/main.zip
 Extract it and change your command line shell to the root folder.
