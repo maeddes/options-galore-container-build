@@ -1,15 +1,10 @@
 {
 	"name": "Java",
-	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	"image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
 
 	"features": {
 		"ghcr.io/devcontainers-contrib/features/ant-sdkman:2": {},
 		"ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {},
-        "ghcr.io/devcontainers/features/java:1": {
-			"version": "21",
-			"installMaven": "true",
-			"installGradle": "true"
-		},
 		"docker-in-docker": "latest",
 		"github-cli": "latest"
 	},
