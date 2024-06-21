@@ -11,7 +11,6 @@ This lab will walk you through steps to build container images with various tech
 * Slides: https://speakerdeck.com/maeddes/options-galore-from-source-code-to-container-image
 * Recording (English): https://www.youtube.com/watch?v=mFamovTQ6Po
 * Recording (German): https://www.youtube.com/watch?v=ga8iqQ25lUY
-* Recording (Carlos & Devoxx UK):  https://youtu.be/HTtdoRc0BQI
 * Carlos Repo: https://github.com/carlosbarragan/java-containers-demo
 
 == Prereqs
@@ -507,8 +506,10 @@ Set a default builder to avoid specifying a builder every time you build. For th
 
 [source]
 ----
-pack config default-builder paketobuildpacks/builder:base 
+pack config default-builder paketobuildpacks/builder-jammy-base
 ----
+
+
 
 Now all is set to build the container image using the buildpack. Simply execute:
 
@@ -516,6 +517,8 @@ Now all is set to build the container image using the buildpack. Simply execute:
 ----
 pack build java-app:pack
 ----
+
+
 
 The first invocation will take a long time. The builder image is big as it contains all the logic plus buildpacks.
 
@@ -535,6 +538,13 @@ Should display output like:
 ...
 
 Successfully built image java-app:pack^
+----
+
+
+Optimize the build with:
+
+----
+pack build java-app:pack-compressed --env BP_JVM_JLINK_ENABLED=true
 ----
 
 If you want to configure specific JVM settings with Paketo Buildpacks you can extend the call to use alternative configuration:
